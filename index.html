@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SIP &amp; BITE Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#0b1030; --card:rgba(255,255,255,.07); --line:rgba(255,255,255,.14);
+  --text:#f4f6ff; --muted:#aab2e0;
+  --purple:#8b5cf6; --blue:#3b82f6; --teal:#2dd4bf; --coral:#ff6b6b;
+  --font:'Poppins','Segoe UI',system-ui,-apple-system,Roboto,sans-serif;
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.4;
+  background-image:
+   radial-gradient(900px 500px at 85% -5%,rgba(139,92,246,.35),transparent 60%),
+   radial-gradient(700px 500px at -10% 25%,rgba(45,212,191,.18),transparent 60%),
+   radial-gradient(800px 600px at 110% 70%,rgba(255,107,107,.15),transparent 60%);
+  background-attachment:fixed;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px 48px}
+
+.hero{padding:34px 4px 18px;position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-size:clamp(2.4rem,11vw,4rem);font-weight:800;letter-spacing:-.02em;line-height:1;margin:0;
+  background:linear-gradient(100deg,var(--teal),var(--blue) 40%,var(--purple) 70%,var(--coral));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.contact{display:flex;flex-direction:column;align-items:flex-end;gap:10px;margin:0 0 0 auto}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;
+  background:var(--card);border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:.9rem;font-weight:600;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);max-width:100%;overflow-wrap:anywhere}
+.pill:focus-visible,.chip:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.amp{font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-weight:800;font-style:normal;letter-spacing:0}
+.hero-emoji{position:absolute;right:2px;top:22px;font-size:clamp(2.2rem,11vw,4.2rem);line-height:1;
+  filter:drop-shadow(0 8px 18px rgba(0,0,0,.4));display:flex;flex-direction:column;gap:2px;text-align:center}
+
+.chips-bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;margin:0 -16px;padding:10px 16px;
+  background:rgba(11,16,48,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);
+  color:var(--text);font:600 .85rem var(--font);text-decoration:none;white-space:nowrap}
+.chip.on{background:var(--a,var(--purple));border-color:transparent;color:#0b1030}
+
+.group{margin-top:34px}
+.group h2{margin:0 0 4px;font-size:clamp(1.6rem,7vw,2.2rem);font-weight:800;letter-spacing:-.01em}
+.group .bar{height:5px;width:84px;border-radius:9px;background:linear-gradient(90deg,var(--teal),var(--purple),var(--coral))}
+
+.card{--a:var(--purple);margin-top:16px;border-radius:24px;padding:18px 16px 12px 20px;position:relative;overflow:hidden;
+  background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.04));
+  border:1px solid var(--line);box-shadow:0 14px 34px rgba(0,0,0,.28);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--a)}
+.card-h{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.ico{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;font-size:1.6rem;flex:0 0 auto;
+  background:color-mix(in srgb,var(--a) 28%,transparent);border:1px solid color-mix(in srgb,var(--a) 55%,transparent)}
+.card-h h3{margin:0;font-size:1.3rem;font-weight:700;flex:1;min-width:0}
+.cols{display:grid;grid-template-columns:64px 64px;gap:8px;text-align:center;font-size:.72rem;font-weight:700;color:var(--muted)}
+.row{display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px dashed var(--line)}
+.name{flex:1;min-width:0;font-weight:600;font-size:.97rem;overflow-wrap:anywhere;white-space:pre-wrap}
+.prices{display:grid;gap:8px;grid-template-columns:64px 64px}
+.price{display:block;text-align:center;padding:6px 0;border-radius:12px;font-weight:800;font-size:1rem;
+  background:color-mix(in srgb,var(--a) 24%,transparent);color:#fff;border:1px solid color-mix(in srgb,var(--a) 55%,transparent);white-space:nowrap}
+.single .price{padding:6px 14px;min-width:64px}
+.row.extra .name{color:var(--muted)}
+footer{margin-top:40px;text-align:center;font-weight:800;font-size:1.1rem}
+.credit{margin:8px 0 0;font-weight:500;font-size:.85rem;color:var(--muted)}
+footer span{background:linear-gradient(100deg,var(--teal),var(--purple),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
+@media (min-width:640px){.name{font-size:1.02rem}.card{padding:22px 26px 14px 30px}}
+.hero{flex-wrap:nowrap;gap:10px;align-items:center;padding:22px 2px 14px}
+.logo{font-size:clamp(1.3rem,6.4vw,3rem);white-space:nowrap;flex:0 1 auto}
+.contact{gap:6px;min-width:0;flex:0 1 auto}
+.pill{padding:6px 10px;font-size:clamp(.58rem,2.6vw,.8rem);white-space:nowrap}
+.brand{min-width:0;flex:0 1 auto}
+.tagline{margin:6px 0 0;color:var(--muted);font-weight:600;letter-spacing:.03em;line-height:1.25;font-size:clamp(.65rem,3vw,1rem)}
+.pill svg{width:1.2em;height:1.2em;flex:0 0 auto}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="brand"><h1 class="logo">SIP <span class="amp">&amp;</span> BITE</h1><p class="tagline">FAST FOOD &amp; LIQUID CORNER</p></div>
+    <div class="contact">
+      <a class="pill" href="tel:8109568112" aria-label="Call 8109568112"><span aria-hidden="true">📞</span> 8109568112</a>
+      <a class="pill" href="https://www.instagram.com/sip_and_bite_mp15" rel="noopener" aria-label="Instagram sip_and_bite_mp15"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg> sip_and_bite_mp15</a>
+    </div>
+    
+  </header>
+  <div class="chips-bar"><nav class="chips" id="chips" aria-label="Menu categories"></nav></div>
+  <main id="menu"></main>
+  <footer><span>THANK YOU FOR COMING</span><p class="credit">digital menu crafted by - @sumitkatarya5</p></footer>
+</div>
+
+<script>
+const GROUPS=[
+ {title:"FAST FOOD",sections:[
+  {id:"snacks",t:"SNACKS",i:"🍟",a:"#ff6b6b",items:[["FRENCH  FRIES","70/-"],["PERI PERI  FRENCH  FRIES","80/-"],["CHILLI  POTATO","100/-"]]},
+  {id:"pizza",t:"PIZZA",i:"🍕",a:"#ff9f43",items:[["VEG PIZZA","100/-"],["VEG CHEESE PIZZA","120/-"],["PANEER CHEESE PIZZA","150/-"],["PANEER PIZZA","140/-"],["DOUBLE LOADED PIZZA","200/-"],["SWEET CORN CHEESE PIZZA","160/-"],["SWEET CORN PANEER CHEESE PIZZA","180/-"],["EXTRA CHEESE TOPPING","30 ₹","extra"]]},
+  {id:"sandwich",t:"SANDWICH",i:"🥪",a:"#2dd4bf",items:[["VEG GRILLED SANDWICH","60/-"],["VEG PERI PERI GRILLED SANDWICH","75/-"],["VEG CHEESE SANDWICH","80/-"],["PERI PERI PANEER SANDWICH","90/-"],["PANEER CHEESE SANDWICH","100/-"],["PERI PERI PANEER CHEESE SANDWICH","120/-"],["PERI PERI CHEESE SANDWICH","90/-"],["VEG PANEER  SANDWICH","95/-"]]},
+  {id:"patties",t:"PATTIES",i:"🥔",a:"#8b5cf6",items:[["AALOO PATTIES","30/-"],["AALOO PANEER PATTIES","35/-"],["CHEESE MASALA PATTIES","45/-"],["CHEESE PANEER PATTIES","50/-"],["CHEESE CORN PATTIES","60/-"]]}
+ ]},
+ {title:"CHINESE FOOD",sections:[
+  {id:"momos",t:"MOMOS",i:"🥟",a:"#ff6b6b",hf:1,items:[["STEAM MOMOS","35/-","60/-"],["FRIED MOMOS","40/-","80/-"],["KURKURE MOMOS","50/-","100/-"],["PANEER MOMOS","60/-","120/-"]]},
+  {id:"rice",t:"FRIED RICE",i:"🍚",a:"#3b82f6",hf:1,items:[["VEG FRIED RICE","45/-","70/-"],["SCHEZWAN FRIED RICE","50/-","80/-"],["MANCHURIAN FRIED RICE","55/-","90/-"],["PANEER FRIED RICE","60/-","100/-"]]},
+  {id:"manchurian",t:"MANCHURIAN",i:"🥘",a:"#ff9f43",items:[["SEMI GRAVY","70/-"],["DRY MANCHURIAN","80/-"],["GRAVY MANCHURIAN","90/-"]]},
+  {id:"chowmein",t:"CHOWMEIN",i:"🍜",a:"#2dd4bf",hf:1,items:[["VEG CHOWMEIN","45/-","70/-"],["HAKKA NOODLES","45/-","70/-"],["CHILLI CHOWMEIN","50/-","80/-"],["CHOWMEIN BHEL",null,"80/-"],["SCHEZWAN CHOWMEIN","55/-","90/-"],["MANCHURIAN CHOWMEIN","60/-","100/-"]]},
+  {id:"maggie",t:"MAGGIE",i:"🍝",a:"#8b5cf6",items:[["PLAIN MASALA MAGGIE","50/-"],["VEGGIES MASALA MAGGIE","70/-"],["VEG CHEESE MAGGIE","80/-"],["VEG PANEER CHEESE MAGGIE","90/-"],["EXTRA MASALA","10 ₹","extra"]]}
+ ]},
+ {title:"LIQUID CORNER",sections:[
+  {id:"shakes",t:"SHAKES",i:"🥤",a:"#8b5cf6",items:[["CHOCOLATE SHAKES","100/-"],["KIT KAT  SHAKES","120/-"],["OREO SHAKES","120/-"]]},
+  {id:"tea",t:"Tea",i:"🍵",a:"#2dd4bf",items:[["TEA","10/-"],["LEMON TEA","50/-"],["BLACK TEA","30/-"],["GREEN TEA","35/-"],["GINGER TEA","40/-"]]},
+  {id:"mojito",t:"MOJITO",i:"🍹",a:"#3b82f6",items:[["MINT MOJITO","80/-"],["GREEN MINT","100/-"],["BLUE CURACAO","100/-"],["PLUS MOJITO","110/-"],["FLIRTY GRENADINE","110/-"]]},
+  {id:"coffee",t:"Coffee",i:"☕",a:"#ff9f43",items:[["HOT COFFEE","30/-"],["HOT CHOCOLATE COFFEE","60/-"],["COLD COFFEE","80/-"],["COLD COFFEE WITH ICECREAM","100/-"],["BLACK COFFEE","20/-"]]}
+ ]},
+ {title:"SIP BITE SPECIAL",sections:[
+  {id:"special",t:"SIP BITE SPECIAL",i:"🍽️",a:"#ff6b6b",items:[["WHITE SAUCE MAGGIE","100/-"],["WHITE SAUCE CHEESE MAGGIE","120/-"],["WHITE SAUCE PANEER MAGGIE","150/-"],["WHITE SAUCE PANEER CHEESE MAGGIE","180/-"],["WHITE SAUCE SWEET CORN CHEESE MAGGIE","200/-"],["VEG SANDWICH PIZZA","100/-"],["VEG CHEESE SANDWICH PIZZA","120/-"],["PANEER CHEESE SANDWICH PIZZA","150/-"],["SWEET CORN CHEESE SANDWICH PIZZA","180/-"],["SWEET CORN PANEER CHEESE SANDWICH PIZZA","220/-"],["COMBO(MANCHURIAN CHOWMEIN RICE)","100/-"]]}
+ ]}
+];
+GROUPS.unshift(GROUPS.pop());
+const menu=document.getElementById('menu'),chips=document.getElementById('chips');
+GROUPS.forEach(g=>{
+  const sec=document.createElement('section');sec.className='group';
+  const h2=document.createElement('h2');h2.textContent=g.title;
+  const bar=document.createElement('div');bar.className='bar';
+  sec.append(h2,bar);
+  g.sections.forEach(s=>{
+    const c=document.createElement('article');c.className='card';c.id=s.id;c.style.setProperty('--a',s.a);
+    let h=`<div class="card-h"><div class="ico" aria-hidden="true">${s.i}</div><h3>${s.t}</h3>`;
+    if(s.hf)h+=`<div class="cols"><span>HALF</span><span>FULL</span></div>`;
+    h+=`</div>`;
+    s.items.forEach(it=>{
+      let p;
+      if(s.hf){
+        p=`<div class="prices"><span>${it[1]?`<span class="price">${it[1]}</span>`:''}</span><span class="price">${it[2]}</span></div>`;
+      }else{
+        p=`<div class="single"><span class="price">${it[1]}</span></div>`;
+      }
+      h+=`<div class="row${it[2]==='extra'?' extra':''}"><div class="name">${it[0]}</div>${p}</div>`;
+    });
+    c.innerHTML=h;sec.appendChild(c);
+    const a=document.createElement('a');a.className='chip';a.href='#'+s.id;a.textContent=s.i+' '+s.t;a.dataset.t=s.id;a.style.setProperty('--a',s.a);chips.appendChild(a);
+  });
+  menu.appendChild(sec);
+});
+const cards=[...document.querySelectorAll('.card')],chipEls=[...chips.querySelectorAll('.chip')],bar=document.querySelector('.chips-bar');
+let forced=null,ticking=false,current=null,anim=0;
+function setActive(id){
+  if(id===current)return;current=id;
+  chipEls.forEach(c=>c.classList.toggle('on',c.dataset.t===id));
+  const on=chipEls.find(c=>c.dataset.t===id);
+  if(on){const cr=chips.getBoundingClientRect(),r=on.getBoundingClientRect();
+    chips.scrollLeft=chips.scrollLeft+(r.left-cr.left)-(chips.clientWidth-on.offsetWidth)/2;}
+}
+function spy(){
+  ticking=false;if(forced)return;
+  const line=bar.getBoundingClientRect().bottom+32;
+  let id=cards[0].id;
+  for(const c of cards){if(c.getBoundingClientRect().top<=line)id=c.id;else break;}
+  if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4)id=cards[cards.length-1].id;
+  setActive(id);
+}
+window.addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(spy);}},{passive:true});
+window.addEventListener('resize',spy);
+['wheel','touchstart','mousedown','keydown'].forEach(ev=>window.addEventListener(ev,()=>{forced=null;anim++;},{passive:true}));
+function goTo(id){
+  const el=document.getElementById(id);if(!el)return;
+  const stuck=(parseFloat(getComputedStyle(bar).top)||0)+bar.offsetHeight;
+  const max=document.documentElement.scrollHeight-window.innerHeight;
+  const from=window.scrollY,to=Math.max(0,Math.min(max,from+el.getBoundingClientRect().top-stuck-8));
+  const t0=performance.now(),dur=300,my=++anim;
+  (function step(t){
+    if(my!==anim)return;
+    const k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3);
+    window.scrollTo(0,from+(to-from)*e);
+    if(k<1)requestAnimationFrame(step);
+  })(t0);
+}
+chipEls.forEach(c=>c.addEventListener('click',e=>{e.preventDefault();forced=c.dataset.t;setActive(forced);goTo(forced);}));
+spy();
+</script>
+</body>
+</html>
